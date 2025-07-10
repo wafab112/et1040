@@ -1,0 +1,494 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.openStep('C:/Users/student/Desktop/Lightbulb-v9.step', scaleFromFile=OFF)
+mdb.models['Model-1'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='Lightbulb-v9-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].PartFromGeometryFile(bodyNum=2, combine=False, 
+    dimensionality=THREE_D, geometryFile=mdb.acis, name='Lightbulb-v9-2', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].PartFromGeometryFile(bodyNum=3, combine=False, 
+    dimensionality=THREE_D, geometryFile=mdb.acis, name='Lightbulb-v9-3', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].PartFromGeometryFile(bodyNum=4, combine=False, 
+    dimensionality=THREE_D, geometryFile=mdb.acis, name='Lightbulb-v9-4', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].PartFromGeometryFile(bodyNum=5, combine=False, 
+    dimensionality=THREE_D, geometryFile=mdb.acis, name='Lightbulb-v9-5', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts.changeKey(fromName='Lightbulb-v9-1', toName=
+    'Lightbulb-v9-Fassung')
+mdb.models['Model-1'].parts.changeKey(fromName='Lightbulb-v9-2', toName=
+    'Lightbulb-v9-Draht')
+mdb.models['Model-1'].parts.changeKey(fromName='Lightbulb-v9-5', toName=
+    'Lightbulb-v9-Glas')
+mdb.models['Model-1'].parts.changeKey(fromName='Lightbulb-v9-4', toName=
+    'Lightbulb-v9-Verbindung1')
+mdb.models['Model-1'].parts.changeKey(fromName='Lightbulb-v9-3', toName=
+    'Lightbulb-v9-Verbindung2')
+# Save by student on 2025_07_10-12.13.17; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name=
+    'Lightbulb-v9-Draht-1', part=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name=
+    'Lightbulb-v9-Fassung-1', part=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name=
+    'Lightbulb-v9-Glas-1', part=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name=
+    'Lightbulb-v9-Verbindung1-1', part=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name=
+    'Lightbulb-v9-Verbindung2-1', part=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'])
+# Save by student on 2025_07_10-12.14.23; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].Surface(name='Glas--aussen', 
+    side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].faces.getSequenceFromMask(
+    ('[#1f ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].Surface(name='Glas--innen', 
+    side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].faces.getSequenceFromMask(
+    ('[#3e0 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].Set(cells=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Draht--alles')
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].Set(edges=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].edges.getSequenceFromMask(
+    ('[#4 ]', ), ), name='Glas--Ende1')
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].sets.changeKey(fromName=
+    'Glas--Ende1', toName='Draht--Ende1')
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].Set(edges=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].edges.getSequenceFromMask(
+    ('[#2 ]', ), ), name='Draht--Kurve')
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].Surface(name='Draht--Ende1', 
+    side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].faces.getSequenceFromMask(
+    ('[#2 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].Set(edges=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].edges.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Draht--Ende2')
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].Surface(name='Draht--Ende12', 
+    side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].faces.getSequenceFromMask(
+    ('[#4 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].surfaces.changeKey(fromName=
+    'Draht--Ende12', toName='Draht--Ende2')
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].Set(cells=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#3 ]', ), ), name='Glas--Alles')
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].faces.getSequenceFromMask(
+    ('[#1f ]', ), ), name='Glas--ausen')
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].sets.changeKey(fromName=
+    'Glas--ausen', toName='Glas--ausden')
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].sets.changeKey(fromName=
+    'Glas--ausden', toName='Glas--aussen')
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].faces.getSequenceFromMask(
+    ('[#3e0 ]', ), ), name='Glas--innen')
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(cells=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Fassung--Alles')
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#60 ]', ), ), name='Fassung--aussen')
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#70 ]', ), ), name='Fassung--aussen')
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#e ]', ), ), name='Fassung--innen')
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Fassung--Uebergang')
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Surface(name=
+    'Fassung--innen', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#2e ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Surface(name=
+    'Fassung--aussen', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#10 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Surface(name=
+    'Fassung--aussen', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#70 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Surface(name=
+    'Fassung--Uebergang', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].Set(cells=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Verb1--alles')
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].faces.getSequenceFromMask(
+    ('[#200 ]', ), ), name='Verb1--Oben')
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ), name='Verb1--unten')
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].Surface(name=
+    'Verb1--unten', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].Surface(name=
+    'Verb1--oben', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].faces.getSequenceFromMask(
+    ('[#200 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].Surface(name=
+    'Verb1--Rand', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].faces.getSequenceFromMask(
+    ('[#ff ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].Set(cells=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Verb2--Alles')
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].faces.getSequenceFromMask(
+    ('[#200 ]', ), ), name='Verb2--oben')
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].Surface(name=
+    'Verb2--oben', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].faces.getSequenceFromMask(
+    ('[#200 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ), name='Verb2--unten')
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].Surface(name=
+    'Verb2--unten', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].faces.getSequenceFromMask(
+    ('[#100 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].Surface(name=
+    'Verb2--Rand', side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].faces.getSequenceFromMask(
+    ('[#ff ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+# Save by student on 2025_07_10-12.29.16; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.05)
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.1)
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].generateMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].setElementType(elemTypes=(
+    ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(elemCode=DC3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=DC3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+# Save by student on 2025_07_10-12.52.53; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].seedPart(
+    deviationFactor=0.1, minSizeFactor=0.1, size=1.0)
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].generateMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].setElementType(
+    elemTypes=(ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(
+    elemCode=DC3D6, elemLibrary=STANDARD), ElemType(elemCode=DC3D4, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].seedPart(
+    deviationFactor=0.1, minSizeFactor=0.1, size=1.0)
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].generateMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].setElementType(
+    elemTypes=(ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(
+    elemCode=DC3D6, elemLibrary=STANDARD), ElemType(elemCode=DC3D4, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+# Save by student on 2025_07_10-12.53.36; build 2021 2020_03_06-15.50.37 167380
+# Save by student on 2025_07_10-12.53.38; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].deleteMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.05)
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].generateMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].setElementType(elemTypes=(
+    ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(elemCode=DC3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=DC3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+# Save by student on 2025_07_10-12.54.05; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].PartitionCellByPlanePointNormal(
+    cells=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), normal=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].edges[2], point=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].vertices[2])
+# Save by student on 2025_07_10-13.07.29; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setMeshControls(elemShape=
+    TET, regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), technique=FREE)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D20R, elemLibrary=STANDARD), ElemType(elemCode=C3D15, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D10, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setMeshControls(elemShape=
+    HEX, regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), technique=BOTTOM_UP)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D8R, elemLibrary=STANDARD), ElemType(elemCode=C3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), ))
+mdb.meshEditOptions.setValues(enableUndo=True, maxUndoCacheElements=0.5)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].seedPart(deviationFactor=
+    0.1, minSizeFactor=0.1, size=1.9)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpSweptMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    geometryConnectingSides=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )), geometrySourceSide=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#40 ]', ), )), targetSide=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces[8])
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].undoMeshEdit()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpSweptMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    geometryConnectingSides=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )), geometrySourceSide=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#40 ]', ), )), targetSide=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces[5])
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].undoMeshEdit()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpExtrudedMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    extrudeVector=((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), geometrySourceSide=
+    Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#40 ]', ), )), numberOfLayers=1)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpSweptMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    geometryConnectingSides=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#100 ]', ), )), geometrySourceSide=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )), targetSide=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces[4])
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpSweptMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    geometrySourceSide=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )), numberOfLayers=1, targetSide=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces[4])
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpSweptMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    geometryConnectingSides=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#100 ]', ), )), geometrySourceSide=Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateBottomUpExtrudedMesh(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells[1], 
+    extrudeVector=((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), geometrySourceSide=
+    Region(
+    faces=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )), numberOfLayers=1)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].undoMeshEdit()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setMeshControls(elemShape=
+    TET, regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), technique=FREE)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D20R, elemLibrary=STANDARD), ElemType(elemCode=C3D15, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D10, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].generateMesh()
+# Save by student on 2025_07_10-13.15.12; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setMeshControls(elemShape=TET, 
+    regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), technique=FREE)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D20R, elemLibrary=STANDARD), ElemType(elemCode=C3D15, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D10, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=1.0)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=2.0)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].generateMesh()
+mdb.meshEditOptions.setValues(enableUndo=True, maxUndoCacheElements=0.5)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].deleteMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setMeshControls(algorithm=
+    ADVANCING_FRONT, elemShape=HEX_DOMINATED, regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), technique=SWEEP)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D8R, elemLibrary=STANDARD), ElemType(elemCode=C3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].generateMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].deleteMesh()
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].PartitionCellByPatchNEdges(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells[1], edges=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[1], ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].PartitionCellByPatchNEdges(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells[1], edges=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[14], 
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[13]))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].PartitionCellByPatchNEdges(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells[1], edges=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[14], 
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[13]))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].PartitionCellByPatchNEdges(
+    cell=mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells[1], edges=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[15], 
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].edges[16]))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setMeshControls(elemShape=TET, 
+    regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#4 ]', ), ), technique=FREE)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D20R, elemLibrary=STANDARD), ElemType(elemCode=C3D15, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D10, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#4 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setMeshControls(elemShape=TET, 
+    regions=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#7 ]', ), ), technique=FREE)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setElementType(elemTypes=(
+    ElemType(elemCode=C3D20R, elemLibrary=STANDARD), ElemType(elemCode=C3D15, 
+    elemLibrary=STANDARD), ElemType(elemCode=C3D10, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#7 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].generateMesh()
+# Save by student on 2025_07_10-13.20.53; build 2021 2020_03_06-15.50.37 167380
+# Save by student on 2025_07_10-13.20.53; build 2021 2020_03_06-15.50.37 167380
+# Save by student on 2025_07_10-13.20.53; build 2021 2020_03_06-15.50.37 167380
+# Save by student on 2025_07_10-13.20.54; build 2021 2020_03_06-15.50.37 167380
+# Save by student on 2025_07_10-13.20.54; build 2021 2020_03_06-15.50.37 167380
