@@ -492,3 +492,2098 @@ mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].generateMesh()
 # Save by student on 2025_07_10-13.20.53; build 2021 2020_03_06-15.50.37 167380
 # Save by student on 2025_07_10-13.20.54; build 2021 2020_03_06-15.50.37 167380
 # Save by student on 2025_07_10-13.20.54; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].TemperatureBC(createStepName='Initial', distributionType=
+    UNIFORM, fieldName='', magnitude=0.0, name='BC-Temp-Fassung', region=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].sets['Fassung--aussen'])
+del mdb.models['Model-1'].boundaryConditions['BC-Temp-Fassung']
+mdb.models['Model-1'].Material(name='Glas')
+mdb.models['Model-1'].materials['Glas'].Conductivity(table=((0.0, ), ))
+mdb.models['Model-1'].HeatTransferStep(deltmx=1.0, name='Step-1', previous=
+    'Initial')
+mdb.models['Model-1'].HeatTransferStep(deltmx=1.0, maintainAttributes=True, 
+    name='Step-1', previous='Initial')
+mdb.models['Model-1'].FilmCondition(createStepName='Step-1', definition=
+    EMBEDDED_COEFF, filmCoeff=5.0, filmCoeffAmplitude='', name='Luft', 
+    sinkAmplitude='', sinkDistributionType=UNIFORM, sinkFieldName='', 
+    sinkTemperature=20.0, surface=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Glas-1'].surfaces['Glas--aussen'])
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].Surface(name='Glas--aussen', 
+    side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].faces.getSequenceFromMask(
+    ('[#3c0 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].interactions['Luft'].suppress()
+mdb.models['Model-1'].TemperatureBC(amplitude=UNSET, createStepName='Step-1', 
+    distributionType=UNIFORM, fieldName='', fixed=OFF, magnitude=20.0, name=
+    'Fassung-Temp', region=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].sets['Fassung--aussen'])
+mdb.models['Model-1'].materials['Glas'].conductivity.setValues(table=((1.09, ), 
+    ))
+mdb.models['Model-1'].Material(name='Wolfram')
+mdb.models['Model-1'].materials['Wolfram'].Conductivity(table=((164.0, ), ))
+mdb.models['Model-1'].materials['Wolfram'].SpecificHeat(table=((0.134, ), ))
+mdb.models['Model-1'].materials['Wolfram'].specificHeat.setValues(table=((
+    133000000.0, ), ))
+mdb.models['Model-1'].materials['Glas'].SpecificHeat(table=((840000000.0, ), ))
+mdb.models['Model-1'].Material(name='Aluminium')
+mdb.models['Model-1'].materials['Aluminium'].Conductivity(table=((235.0, ), ))
+mdb.models['Model-1'].materials['Aluminium'].SpecificHeat(table=((900000000.0, 
+    ), ))
+mdb.models['Model-1'].HomogeneousSolidSection(material='Glas', name='Glas', 
+    thickness=None)
+mdb.models['Model-1'].HomogeneousSolidSection(material='Aluminium', name=
+    'Aluminium', thickness=None)
+mdb.models['Model-1'].HomogeneousSolidSection(material='Wolfram', name=
+    'Wolfram', thickness=None)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].SectionAssignment(offset=
+    0.0, offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].sets['Fassung--Alles'], 
+    sectionName='Aluminium', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].sets['Draht--alles'], 
+    sectionName='Wolfram', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].sets['Glas--Alles'], 
+    sectionName='Glas', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].SectionAssignment(
+    offset=0.0, offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].sets['Verb1--alles']
+    , sectionName='Wolfram', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].SectionAssignment(
+    offset=0.0, offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].sets['Verb2--Alles']
+    , sectionName='Wolfram', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].BodyHeatFlux(createStepName='Step-1', magnitude=2000.0, 
+    name='Draht-Leistung', region=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Draht-1'].sets['Draht--alles'])
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].DatumPointByMidPoint(
+    point1=mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].vertices[6], 
+    point2=mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].vertices[2])
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].DatumPointByMidPoint(
+    point1=mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].vertices[14]
+    , point2=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].vertices[13])
+# Save by fdet4685 on 2025_07_10-14.50.26; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].DatumPointByMidPoint(
+    point1=mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].vertices[3], 
+    point2=mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].vertices[7])
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].DatumPointByMidPoint(
+    point1=mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].vertices[15]
+    , point2=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].vertices[13])
+# Save by fdet4685 on 2025_07_10-14.50.56; build 2021 2020_03_06-15.50.37 167380
+# Save by fdet4685 on 2025_07_10-14.50.57; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.DatumAxisByTwoPoint(point1=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].edges[3], 
+    MIDDLE), point2=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].vertices[2])
+mdb.models['Model-1'].rootAssembly.DatumPointByMidPoint(point1=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].InterestingPoint(
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].edges[3], 
+    MIDDLE), point2=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung2-1'].datums[10])
+mdb.models['Model-1'].rootAssembly.DatumPointByMidPoint(point1=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].vertices[2]
+    , point2=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung1-1'].datums[10])
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].DatumAxisByTwoPoint(point1=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].InterestingPoint(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].edges[3], MIDDLE), 
+    point2=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].vertices[2])
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].DatumAxisByTwoPoint(point1=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].InterestingPoint(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].edges[0], MIDDLE), 
+    point2=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].InterestingPoint(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].edges[4], MIDDLE))
+# Save by fdet4685 on 2025_07_10-14.56.44; build 2021 2020_03_06-15.50.37 167380
+# Save by fdet4685 on 2025_07_10-14.56.45; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(name='Set-5', vertices=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].vertices.getSequenceFromMask(
+    ('[#8 ]', ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].DatumPointByProjOnEdge(
+    edge=mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].datums[20], point=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].InterestingPoint(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].edges[4], MIDDLE))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(name='Set-6', nodes=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].nodes.getSequenceFromMask(
+    mask=('[#0:5 #40000 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].Tie(adjust=ON, master=Region(
+    side1Faces=mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung2-1'].faces.getSequenceFromMask(
+    mask=('[#100 ]', ), )), name='Constraint-1', positionToleranceMethod=
+    COMPUTED, slave=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].sets['Set-6']
+    , thickness=ON, tieRotations=ON)
+mdb.models['Model-1'].Tie(adjust=ON, master=Region(
+    side1Faces=mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung1-1'].faces.getSequenceFromMask(
+    mask=('[#100 ]', ), )), name='Constraint-2', positionToleranceMethod=
+    COMPUTED, slave=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].sets['Set-5']
+    , thickness=ON, tieRotations=ON)
+mdb.models['Model-1'].Tie(adjust=ON, master=Region(
+    side1Faces=mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung1-1'].faces.getSequenceFromMask(
+    mask=('[#200 ]', ), )), name='Constraint-3', positionToleranceMethod=
+    COMPUTED, slave=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Draht-1'].sets['Draht--Ende1']
+    , thickness=ON, tieRotations=ON)
+mdb.models['Model-1'].Tie(adjust=ON, master=Region(
+    side1Faces=mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung2-1'].faces.getSequenceFromMask(
+    mask=('[#200 ]', ), )), name='Constraint-4', positionToleranceMethod=
+    COMPUTED, slave=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Draht-1'].sets['Draht--Ende2']
+    , thickness=ON, tieRotations=ON)
+mdb.models['Model-1'].constraints.changeKey(fromName='Constraint-1', toName=
+    'Fassung-Verb2')
+mdb.models['Model-1'].constraints.changeKey(fromName='Constraint-2', toName=
+    'Fassung-Verb1')
+mdb.models['Model-1'].constraints.changeKey(fromName='Constraint-3', toName=
+    'Draht-Verb2')
+mdb.models['Model-1'].constraints.changeKey(fromName='Constraint-4', toName=
+    'Draht-Verb1')
+mdb.models['Model-1'].rootAssembly.Surface(name='Glas-Uebergang', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Glas-1'].faces.getSequenceFromMask(
+    ('[#400 ]', ), ))
+mdb.models['Model-1'].Tie(adjust=ON, master=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].surfaces['Fassung--Uebergang']
+    , name='Constraint-5', positionToleranceMethod=COMPUTED, slave=
+    mdb.models['Model-1'].rootAssembly.surfaces['Glas-Uebergang'], thickness=ON
+    , tieRotations=ON)
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Job-1', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, resultsFormat=ODB, scratch='', type=
+    ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'STRESS-DISPLACEMENT ELEMENTS OR OTHER ELEMENTS WITHOUT TEMPERATURE DEGREE OF FREEDOM ARE NOT ALLOWED IN A HEAT TRANSFER ANALYSIS', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'STRESS-DISPLACEMENT ELEMENTS OR OTHER ELEMENTS WITHOUT TEMPERATURE DEGREE OF FREEDOM ARE NOT ALLOWED IN A HEAT TRANSFER ANALYSIS', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].setElementType(elemTypes=(
+    ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(elemCode=DC3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=DC3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].setElementType(elemTypes=(
+    ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(elemCode=DC3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=DC3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].cells.getSequenceFromMask(
+    ('[#3 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].setElementType(elemTypes=(
+    ElemType(elemCode=DC3D20, elemLibrary=STANDARD), ElemType(elemCode=DC3D15, 
+    elemLibrary=STANDARD), ElemType(elemCode=DC3D10, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#7 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].setElementType(
+    elemTypes=(ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(
+    elemCode=DC3D6, elemLibrary=STANDARD), ElemType(elemCode=DC3D4, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].setElementType(
+    elemTypes=(ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(
+    elemCode=DC3D6, elemLibrary=STANDARD), ElemType(elemCode=DC3D4, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE ABSOLUTE ZERO TEMPERATURE HAS NOT BEEN SPECIFIED FOR COMPUTING INTERNAL THERMAL ENERGY USING THE ABSOLUTE ZERO PARAMETER ON THE *PHYSICAL CONSTANTS OPTION. A DEFAULT VALUE OF 0.0000 WILL BE ASSUMED.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': '*SPECIFIC HEAT REQUIRES THE USE OF *DENSITY', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': '*SPECIFIC HEAT REQUIRES THE USE OF *DENSITY', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': '*SPECIFIC HEAT REQUIRES THE USE OF *DENSITY', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_-ASSEMBLY__PICKEDSURF18), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_-ASSEMBLY__PICKEDSURF17), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '4 nodes have been adjusted. The nodes have been identified in node set WarnNodeAdjust.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '546 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].materials['Aluminium'].Density(table=((2.7e-09, ), ))
+mdb.models['Model-1'].materials['Glas'].Density(table=((2.5e-09, ), ))
+mdb.models['Model-1'].materials['Wolfram'].Density(table=((1.925e-08, ), ))
+# Save by fdet4685 on 2025_07_10-15.13.27; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE ABSOLUTE ZERO TEMPERATURE HAS NOT BEEN SPECIFIED FOR COMPUTING INTERNAL THERMAL ENERGY USING THE ABSOLUTE ZERO PARAMETER ON THE *PHYSICAL CONSTANTS OPTION. A DEFAULT VALUE OF 0.0000 WILL BE ASSUMED.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_-ASSEMBLY__PICKEDSURF18), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_-ASSEMBLY__PICKEDSURF17), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '4 nodes have been adjusted. The nodes have been identified in node set WarnNodeAdjust.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '546 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 4544, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1272.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 321.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 1U', 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 2U', 
+    'timeIncrement': 0.00119103201061261, 'increment': 1, 'stepTime': 0.0, 
+    'step': 1, 'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 
+    'phase': STANDARD_PHASE, 'equilibrium': 1})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 3U', 
+    'timeIncrement': 0.000162910471437925, 'increment': 1, 'stepTime': 0.0, 
+    'step': 1, 'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 
+    'phase': STANDARD_PHASE, 'equilibrium': 1})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'attempts': ' 4U', 
+    'timeIncrement': 3.47635247072345e-05, 'increment': 1, 'stepTime': 0.0, 
+    'step': 1, 'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 
+    'phase': STANDARD_PHASE, 'equilibrium': 1})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'Time increment required is less than the minimum specified', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'Too many attempts made for this increment', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ABORTED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].steps['Step-1'].setValues(amplitude=RAMP, response=
+    STEADY_STATE)
+# Save by fdet4685 on 2025_07_10-15.18.57; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE ABSOLUTE ZERO TEMPERATURE HAS NOT BEEN SPECIFIED FOR COMPUTING INTERNAL THERMAL ENERGY USING THE ABSOLUTE ZERO PARAMETER ON THE *PHYSICAL CONSTANTS OPTION. A DEFAULT VALUE OF 0.0000 WILL BE ASSUMED.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_-ASSEMBLY__PICKEDSURF18), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_-ASSEMBLY__PICKEDSURF17), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '4 nodes have been adjusted. The nodes have been identified in node set WarnNodeAdjust.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '546 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 13700, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'memory': 1272.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 321.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'increment': 1, 
+    'attempts': 1, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'timeIncrement': 1.0, 'stepTime': 1.0, 'step': 1, 'jobName': 'Job-1', 
+    'severe': 0, 'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'jobName': 'Job-1', 
+    'time': 'Thu Jul 10 15:20:00 2025'})
+mdb.models['Model-1'].loads['Draht-Leistung'].setValues(magnitude=60000.0)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE ABSOLUTE ZERO TEMPERATURE HAS NOT BEEN SPECIFIED FOR COMPUTING INTERNAL THERMAL ENERGY USING THE ABSOLUTE ZERO PARAMETER ON THE *PHYSICAL CONSTANTS OPTION. A DEFAULT VALUE OF 0.0000 WILL BE ASSUMED.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_-ASSEMBLY__PICKEDSURF18), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_-ASSEMBLY__PICKEDSURF17), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '4 nodes have been adjusted. The nodes have been identified in node set WarnNodeAdjust.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '546 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 37268, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'memory': 1272.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 321.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'increment': 1, 
+    'attempts': 1, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'timeIncrement': 1.0, 'stepTime': 1.0, 'step': 1, 'jobName': 'Job-1', 
+    'severe': 0, 'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'jobName': 'Job-1', 
+    'time': 'Thu Jul 10 15:22:29 2025'})
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].setValues(geometryRefinement=
+    EXTRA_FINE)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(adjust=OFF, 
+    positionTolerance=1.0, positionToleranceMethod=SPECIFIED)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(adjust=OFF, 
+    positionTolerance=1.0, positionToleranceMethod=SPECIFIED)
+mdb.models['Model-1'].constraints['Fassung-Verb2'].setValues(adjust=OFF, 
+    positionTolerance=1.0, positionToleranceMethod=SPECIFIED)
+mdb.models['Model-1'].constraints['Fassung-Verb1'].setValues(adjust=OFF, 
+    positionTolerance=1.0, positionToleranceMethod=SPECIFIED)
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Surface(name='Surf-4', 
+    side1Faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#80 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].Set(faces=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Fassung'].faces.getSequenceFromMask(
+    ('[#80 ]', ), ), name='Set-4')
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].boundaryConditions['Fassung-Temp'].setValues(region=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Fassung-1'].sets['Set-4'])
+mdb.models['Model-1'].setValues(absoluteZero=-273.15)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_,ASSEMBLY__PICKEDSURF18) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_,ASSEMBLY__PICKEDSURF17) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 35220, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'memory': 1284.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'increment': 1, 
+    'attempts': 1, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'timeIncrement': 1.0, 'stepTime': 1.0, 'step': 1, 'jobName': 'Job-1', 
+    'severe': 0, 'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'jobName': 'Job-1', 
+    'time': 'Thu Jul 10 15:34:47 2025'})
+mdb.models['Model-1'].constraints['Fassung-Verb1'].setValues(positionTolerance=
+    4.0)
+mdb.models['Model-1'].constraints['Fassung-Verb2'].setValues(positionTolerance=
+    4.0)
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(positionTolerance=
+    4.0)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(positionTolerance=
+    4.0)
+mdb.models['Model-1'].boundaryConditions['Fassung-Temp'].suppress()
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_,ASSEMBLY__PICKEDSURF18) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_,ASSEMBLY__PICKEDSURF17) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 14628, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'memory': 1284.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].steps['Step-1'].setValues(initialInc=0.1, maxInc=0.1)
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'increment': 1, 
+    'attempts': ' 1U', 'iterations': 4, 'phase': STANDARD_PHASE, 
+    'timeIncrement': 1.0, 'stepTime': 0.0, 'step': 1, 'jobName': 'Job-1', 
+    'severe': 0, 'equilibrium': 4})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].setElementType(elemTypes=(
+    ElemType(elemCode=DC3D8, elemLibrary=STANDARD), ElemType(elemCode=DC3D6, 
+    elemLibrary=STANDARD), ElemType(elemCode=DC3D4, elemLibrary=STANDARD)), 
+    regions=(
+    mdb.models['Model-1'].parts['Lightbulb-v9-Draht'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'increment': 1, 
+    'attempts': ' 2U', 'iterations': 4, 'phase': STANDARD_PHASE, 
+    'timeIncrement': 0.25, 'stepTime': 0.0, 'step': 1, 'jobName': 'Job-1', 
+    'severe': 0, 'equilibrium': 4})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.0, 'increment': 1, 
+    'attempts': ' 3U', 'iterations': 4, 'phase': STANDARD_PHASE, 
+    'timeIncrement': 0.0625, 'stepTime': 0.0, 'step': 1, 'jobName': 'Job-1', 
+    'severe': 0, 'equilibrium': 4})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.9 D.O.F. 11 ratio = 1.29253E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'Process terminated by external request (SIGTERM or SIGINT received).', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(INTERRUPTED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis interrupted by external signal', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.Model(name='Model-1-mod', objectToCopy=mdb.models['Model-1'])
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(adjust=ON, 
+    positionToleranceMethod=COMPUTED)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(adjust=ON, 
+    positionToleranceMethod=COMPUTED)
+mdb.models['Model-1'].constraints['Fassung-Verb1'].setValues(adjust=ON, 
+    positionToleranceMethod=COMPUTED)
+mdb.models['Model-1'].constraints['Fassung-Verb2'].setValues(adjust=ON, 
+    positionToleranceMethod=COMPUTED)
+mdb.models['Model-1'].boundaryConditions['Fassung-Temp'].resume()
+del mdb.models['Model-1-mod']
+mdb.Model(name='Model-1-mod', objectToCopy=mdb.models['Model-1'])
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].checkGeometry()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].generateMesh()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].checkGeometry()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].deleteMesh()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].seedPart(deviationFactor=
+    0.1, minSizeFactor=0.1, size=5.0)
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].generateMesh()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].deleteMesh(regions=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#7 ]', ), ))
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].setMeshControls(elemShape=
+    HEX, regions=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#7 ]', ), ), technique=SYSTEM_ASSIGN)
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].features['Partition cell-1'].suppress(
+    )
+# Save by fdet4685 on 2025_07_10-15.52.47; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+del mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].features['Partition cell-1']
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].RemoveRedundantEntities(
+    edgeList=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].edges.getSequenceFromMask(
+    mask=('[#fffff ]', ), ), vertexList=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].vertices.getSequenceFromMask(
+    mask=('[#ffff ]', ), ))
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].checkGeometry()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].DatumAxisByPrincipalAxis(
+    principalAxis=YAXIS)
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].PartitionCellByExtrudeEdge(
+    cells=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), edges=(
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].edges[4], ), line=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].datums[24], sense=
+    FORWARD)
+#* Feature creation failed.
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].DatumPlaneByPrincipalPlane(
+    offset=0.0, principalPlane=XYPLANE)
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].PartitionCellByDatumPlane(
+    cells=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), datumPlane=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].datums[25])
+#* Feature creation failed.
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].checkGeometry()
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].DatumPlaneByPrincipalPlane(
+    offset=0.0, principalPlane=XZPLANE)
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].DatumPlaneByOffset(plane=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].datums[26], point=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].InterestingPoint(
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].edges[0], MIDDLE))
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].PartitionCellByDatumPlane(
+    cells=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#2 ]', ), ), datumPlane=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].datums[27])
+#* Feature creation failed.
+mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].PartitionCellByDatumPlane(
+    cells=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].cells.getSequenceFromMask(
+    ('[#3 ]', ), ), datumPlane=
+    mdb.models['Model-1-mod'].parts['Lightbulb-v9-Glas'].datums[25])
+#* Feature creation failed.
+mdb.models['Model-1-mod'].rootAssembly.regenerate()
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_-ASSEMBLY__PICKEDSURF18), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_-ASSEMBLY__PICKEDSURF17), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '4 nodes have been adjusted. The nodes have been identified in node set WarnNodeAdjust.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '546 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 17748, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1272.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 321.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.1, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 1, 'stepTime': 0.1, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 2, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.2, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 2, 'stepTime': 0.2, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 3, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.3, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 3, 'stepTime': 0.3, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 4, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.4, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 4, 'stepTime': 0.4, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 5, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.5, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 5, 'stepTime': 0.5, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 6, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.6, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 6, 'stepTime': 0.6, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 7, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.7, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 7, 'stepTime': 0.7, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 8, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.8, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 8, 'stepTime': 0.8, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(positionTolerance=
+    10.0, positionToleranceMethod=SPECIFIED)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(positionTolerance=
+    10.0, positionToleranceMethod=SPECIFIED)
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.75 D.O.F. 11 ratio = 3.44689E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'Process terminated by external request (SIGTERM or SIGINT received).', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(INTERRUPTED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis interrupted by external signal', 'jobName': 'Job-1'})
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+#* Unable to start analysis job
+#* Abaqus Error: Detected lock file Job-1.lck. Please confirm that no other 
+#* applications are attempting to write to the output database associated with 
+#* this job before removing the lock file and resubmitting.
+#* Abaqus/Analysis exited with error(s).
+#* 
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_-ASSEMBLY__PICKEDSURF18), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '6 nodes have been adjusted. The nodes have been identified in node set WarnNodeAdjust.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'The volume of 2 elements is zero, small, or negative. Check coordinates or node numbering, or modify the mesh seed. In the case of a tetrahedron this error may indicate that all nodes are located very nearly in a plane. The elements have been identified in element set ErrElemVolSmallNegZero.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(adjust=OFF)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(adjust=OFF)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_,ASSEMBLY__PICKEDSURF18) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_,ASSEMBLY__PICKEDSURF17) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 31992, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1284.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.1, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 1, 'stepTime': 0.1, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 2, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.2, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 2, 'stepTime': 0.2, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 3, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.3, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 3, 'stepTime': 0.3, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 4, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.4, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 4, 'stepTime': 0.4, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 5, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.5, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 5, 'stepTime': 0.5, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 6, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.6, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 6, 'stepTime': 0.6, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 7, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 0.7, 'attempts': 1, 
+    'timeIncrement': 0.1, 'increment': 7, 'stepTime': 0.7, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {'phase': STANDARD_PHASE, 
+    'message': 'Process terminated by external request (SIGTERM or SIGINT received).', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(INTERRUPTED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis interrupted by external signal', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ERROR, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Standard Analysis exited with an error - Please see the  message file for possible error messages if the file exists.', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].boundaryConditions['Fassung-Temp'].suppress()
+mdb.models['Model-1'].interactions['Luft'].resume()
+mdb.models['Model-1'].interactions['Luft'].setValues(definition=EMBEDDED_COEFF, 
+    filmCoeff=0.005, filmCoeffAmplitude='', sinkAmplitude='', sinkTemperature=
+    20.0)
+mdb.models['Model-1'].steps['Step-1'].setValues(initialInc=1.0, maxInc=1.0)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_,ASSEMBLY__PICKEDSURF18) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_,ASSEMBLY__PICKEDSURF17) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 36028, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1284.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:13:45 2025', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(
+    constraintEnforcement=NODE_TO_SURFACE)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(
+    constraintEnforcement=NODE_TO_SURFACE)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2_CNS_,ASSEMBLY__PICKEDSURF18) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1_CNS_,ASSEMBLY__PICKEDSURF17) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 31076, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1284.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.95 D.O.F. 11 ratio = 4.56368E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:18:01 2025', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(
+    constraintEnforcement=SOLVER_DEFAULT, master=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Draht-1'].surfaces['Draht--Ende2']
+    , slave=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung2-1'].surfaces['Verb2--oben'])
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(
+    constraintEnforcement=SOLVER_DEFAULT, master=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Draht-1'].surfaces['Draht--Ende1']
+    , slave=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung1-1'].surfaces['Verb1--oben'])
+mdb.models['Model-1'].boundaryConditions['Fassung-Temp'].resume()
+# Save by fdet4685 on 2025_07_10-16.19.26; build 2021 2020_03_06-15.50.37 167380
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '*TIE BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG2-1_VERB2--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2) IS REVERTED BACK TO TYPE NODE-TO-SURFACE. THIS CASE MAY HAPPEN IF TYPE SURFACE-TO-SURFACE CANNOT FIND NODES TO TIE TOGETHER OR IF DEFAULT ACOUSTIC-STRUCTURAL TIE IS SPECIFIED INVOLVING SHELLS. PLEASE CHECK THE SURFACE DEFINITIONS OR SPECIFY TYPE=SURFACE TO SURFACE FOR ACOUSTIC-STRUCTURAL TIE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG2-1_VERB2--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '*TIE BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG1-1_VERB1--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1) IS REVERTED BACK TO TYPE NODE-TO-SURFACE. THIS CASE MAY HAPPEN IF TYPE SURFACE-TO-SURFACE CANNOT FIND NODES TO TIE TOGETHER OR IF DEFAULT ACOUSTIC-STRUCTURAL TIE IS SPECIFIED INVOLVING SHELLS. PLEASE CHECK THE SURFACE DEFINITIONS OR SPECIFY TYPE=SURFACE TO SURFACE FOR ACOUSTIC-STRUCTURAL TIE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG1-1_VERB1--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 36336, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1289.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.104 D.O.F. 11 ratio = 3.26732E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:20:33 2025', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].constraints['Draht-Verb1'].setValues(
+    constraintEnforcement=NODE_TO_SURFACE)
+mdb.models['Model-1'].constraints['Draht-Verb2'].setValues(
+    constraintEnforcement=NODE_TO_SURFACE)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG2-1_VERB2--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG1-1_VERB1--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 10088, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1289.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.104 D.O.F. 11 ratio = 3.26732E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:23:01 2025', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].loads['Draht-Leistung'].setValues(magnitude=40000.0)
+mdb.models['Model-1'].BodyHeatFlux(createStepName='Step-1', magnitude=10000.0, 
+    name='Load-2', region=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung1-1'].sets['Verb1--alles'])
+mdb.models['Model-1'].BodyHeatFlux(createStepName='Step-1', magnitude=10000.0, 
+    name='Load-3', region=
+    mdb.models['Model-1'].rootAssembly.instances['Lightbulb-v9-Verbindung2-1'].sets['Verb2--Alles'])
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG2-1_VERB2--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG1-1_VERB1--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 22804, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1289.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.104 D.O.F. 11 ratio = 3.26732E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:32:18 2025', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].loads['Draht-Leistung'].setValues(magnitude=57000.0)
+mdb.models['Model-1'].loads['Load-2'].setValues(magnitude=1500.0)
+mdb.models['Model-1'].loads['Load-3'].setValues(magnitude=1500.0)
+mdb.models['Model-1'].Material(name='Kupfer')
+mdb.models['Model-1'].materials['Kupfer'].Conductivity(table=((386.0, ), ))
+mdb.models['Model-1'].HomogeneousSolidSection(material='Kupfer', name='Kupfer', 
+    thickness=None)
+del mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].sectionAssignments[0]
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].SectionAssignment(
+    offset=0.0, offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung1'].sets['Verb1--alles']
+    , sectionName='Kupfer', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Lightbulb-v9-Verbindung2'].sectionAssignments[0].setValues(
+    sectionName='Kupfer')
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG2-1_VERB2--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG1-1_VERB1--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 26524, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1289.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.104 D.O.F. 11 ratio = 3.26732E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:42:44 2025', 
+    'jobName': 'Job-1'})
+mdb.models['Model-1'].boundaryConditions['Fassung-Temp'].suppress()
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'pr12', 'handle': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE CONTACT AREA OR DISTRIBUTING WEIGHT ASSOCIATED WITH 19 NODES IS ZERO OR NEGATIVE. A ONE IS ASSUMED FOR THE CONTACT AREA IF THE SURFACE IS USED IN A CONTACT CALCULATION. A ZERO IS ASSUMED FOR THE DISTRIBUTING WEIGHT FACTOR IF THE SURFACE IS USED IN A *COUPLING OR *SHELL TO SOLID COUPLING DEFINITION. ONE EXAMPLE OF SUCH A NODE IS 276 INSTANCE LIGHTBULB-V9-FASSUNG-1. ALL NODES WITH THIS ISSUE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA. NODES WITH THIS ISSUE PER SLAVE SURFACE ARE INCLUDED IN THE NODE SET NODES_ZERO_AREA_SurfaceName. PLEASE CHECK THAT THIS IS APPROPRIATE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_SN,ASSEMBLY__T0_LIGHTBULB-V9-FASSUNG-1_M) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_GLAS-UEBERGANG-ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_FASSUNG--UEBERGANG), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG2-1_VERB2--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE2) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IF SIGNIFICANT CLEARANCE/OVERCLOSURE EXISTS BETWEEN SURFACE PAIR (ASSEMBLY_LIGHTBULB-V9-VERBINDUNG1-1_VERB1--OBEN,ASSEMBLY_LIGHTBULB-V9-DRAHT-1_DRAHT--ENDE1) AND THE MASTER SURFACE DOES NOT HAVE ROTATIONAL DEGREES OF FREEDOM, ADJUSTMENT IS RECOMMENDED FOR CORRECT ENFORCEMENT OF THE TIE CONSTRAINT', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_,ASSEMBLY__PICKEDSURF16) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-5_CNS_-ASSEMBLY__PICKEDSURF16), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'SLAVE SURFACE ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_ IS A NODE-BASED SURFACE USED WITH SURFACE TO SURFACE APPROACH.  IN ORDER TO OBTAIN IMPROVED STRESS ACCURACY WITH THIS APPROACH, AN ELEMENT-BASED SURFACE SHOULD BE USED INSTEAD.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'PLEASE MAKE SURE THAT THE MESH DENSITY OF THE SLAVE SURFACE IN THE TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_,ASSEMBLY__PICKEDSURF15) IS FINER THAN THE MASTER SURFACE.  THE ANALYSIS MAY RUN SLOWER, MAY YIELD INACCURATE RESULTS, AND MAY REQUIRE MORE MEMORY IF THIS IS NOT THE CASE.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_LIGHTBULB-V9-FASSUNG-1_SET-6_CNS_-ASSEMBLY__PICKEDSURF15), ADJUSTED NODES WITH VERY SMALL ADJUSTMENTS WERE NOT PRINTED. SPECIFY *PREPRINT,MODEL=YES FOR COMPLETE PRINTOUT.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '540 nodes are either missing intersection with their respective master surface or are outside the adjust zone. The nodes have been identified in node set WarnNodeMissMasterIntersect.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2284 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\temp\\Job-1.odb', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'pr12', 'handle': 11996, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'THERE ARE 2 UNCONNECTED REGIONS IN THE MODEL.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-1', 'memory': 1289.0})
+mdb.jobs['Job-1']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 32392.0, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(MINIMUM_MEMORY, {'minimum_memory': 323.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'Solver problem. Numerical singularity when processing node LIGHTBULB-V9-GLAS-1.104 D.O.F. 11 ratio = 3.26732E+12.', 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'Job-1', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Job-1']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-1'})
+mdb.jobs['Job-1']._Message(JOB_COMPLETED, {'time': 'Thu Jul 10 16:45:11 2025', 
+    'jobName': 'Job-1'})
+# Save by fdet4685 on 2025_07_10-16.48.04; build 2021 2020_03_06-15.50.37 167380
+# Save by fdet4685 on 2025_07_10-16.48.04; build 2021 2020_03_06-15.50.37 167380
+# Save by fdet4685 on 2025_07_10-16.48.04; build 2021 2020_03_06-15.50.37 167380
+# Save by fdet4685 on 2025_07_10-16.48.05; build 2021 2020_03_06-15.50.37 167380
